@@ -6,12 +6,12 @@ import java.sql.*;
 public class Conexion {
 
     // url (puerto y parametros)
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/test?&useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/test_java?&useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     // usuario
     private static final String JDBC_USER = "root";
 
     // password
-    private static final String JDBC_PASSWORD = "admin";
+    private static final String JDBC_PASSWORD = "";
 
     // obtener conexion mysl
     public static Connection getConection() throws SQLException {

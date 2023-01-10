@@ -9,6 +9,8 @@ public class PersonaDAO {
 
     private static final String SQL_SELECT = "SELECT persona_id, nombre, apellido, email, telefono FROM persona";
 
+    private static final String SQL_INSERT = "INSERT INTO persona(nombre, apellido, email, telefono) VALUES (?, ?, ?, ?)";
+
     public List<Persona> seleccionar() {
         Connection conn = null;
         // preparedStatement es mas eficiente para querys
@@ -41,7 +43,7 @@ public class PersonaDAO {
                 // agregar objeto persona a la lista (List<Persona>)
                 personas.add(persona);
 
-                return personas;
+              
 
             }
 
@@ -59,6 +61,46 @@ public class PersonaDAO {
             return personas;
 
         }
+
+    }
+
+    // insertar objeto Persona en la tabla
+    public int insertar(Persona persona) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int registros = 0;
+
+        try {
+            conn = Conexion.getConection();
+            stmt = conn.prepareStatement(SQL_INSERT);
+
+            /**
+             * 1er param: parametro correspondiente al query del insert 2do 2do
+             * param: valor del parametro
+             */
+            // se llama setString porque es un campo String/Text/Varchar de la tabla, sino se llama su equivalente
+            stmt.setString(1, persona.getNombre());
+            stmt.setString(2, persona.getApellido());
+            stmt.setString(3, persona.getEmail());
+            stmt.setString(4, persona.getTelefono());
+
+            // ejecutar sentencia sql
+            registros = stmt.executeUpdate(); // esto ejecuta un insert, update o delete
+
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            try {
+                // cerrar objetos de conexion
+                close(stmt);
+                close(conn);
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
+            }
+
+        }
+
+        return registros;
 
     }
 

@@ -6,12 +6,12 @@ public class TestMySqlJDBC {
 
     public static void main(String[] args) {
         // 1. Cadena de conexion para conectarnos a MYSQL
-        String url = "jdbc:mysql://localhost:3306/test?&useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+        String url = "jdbc:mysql://localhost:3306/test_java?&useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
 
         // 2. Conexion desde java con JDBC
         try {
             // Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conexion = DriverManager.getConnection(url, "root", "admin");
+            Connection conexion = DriverManager.getConnection(url, "root", "");
 
             /*
             crear objeto de tipo statement, para poder ejecutar sentencias
