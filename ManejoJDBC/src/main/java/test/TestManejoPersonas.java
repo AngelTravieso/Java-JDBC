@@ -17,10 +17,10 @@ public class TestManejoPersonas {
         // Crear objeto Persona a insertar en la tabla
 //        Persona personaNueva = new Persona("Pedro", "Perez", "correo3@correo.com", "0213150515");
         
-        Persona personaActualizada = new Persona("pablo", "holman", "correo4@correo.com", "65465165");
+        Persona personaActualizada = new Persona(6, "pablo", "holman", "correo4@correo.com", "65465165");
         
         // Actualizar registro en la bd
-        personaDao.actualizar(personaActualizada, 6);
+        personaDao.actualizar(personaActualizada);
 
         // Insertar nuevo objeto Persona
 //        personaDao.insertar(personaNueva);

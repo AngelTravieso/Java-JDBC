@@ -107,7 +107,7 @@ public class PersonaDAO {
     }
 
     // actualizar registro de la tabla
-    public int actualizar(Persona persona, int personaId) {
+    public int actualizar(Persona persona) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
@@ -122,7 +122,7 @@ public class PersonaDAO {
             stmt.setString(2, persona.getApellido());
             stmt.setString(3, persona.getEmail());
             stmt.setString(4, persona.getTelefono());
-            stmt.setInt(5, personaId);
+            stmt.setInt(5, persona.getPersonaId());
 
             registros = stmt.executeUpdate();
 
