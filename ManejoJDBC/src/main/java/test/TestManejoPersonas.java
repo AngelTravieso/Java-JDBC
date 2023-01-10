@@ -10,11 +10,22 @@ public class TestManejoPersonas {
         // Objeto DAO que contiene los metodos para interactuar con la BD
         PersonaDAO personaDao = new PersonaDAO();
 
+        // Eliminar registro de la bd
+//        personaDao.eliminar(8);
+
+
+        // Crear objeto Persona a insertar en la tabla
+//        Persona personaNueva = new Persona("Pedro", "Perez", "correo3@correo.com", "0213150515");
+        
+        Persona personaActualizada = new Persona("pablo", "holman", "correo4@correo.com", "65465165");
+        
+        // Actualizar registro en la bd
+        personaDao.actualizar(personaActualizada, 6);
+
         // Insertar nuevo objeto Persona
-        Persona personaNueva = new Persona("Pedro", "Perez", "correo3@correo.com", "0213150515");
+//        personaDao.insertar(personaNueva);
 
-        personaDao.insertar(personaNueva);
-
+        // seleccionar registro de la tabla
         List<Persona> personas = personaDao.seleccionar();
 
 //        for(Persona persona : personas) {
