@@ -142,7 +142,7 @@ public class PersonaDAO {
     }
 
     // eliminar registro de la tabla
-    public int eliminar(int personaId) {
+    public int eliminar(Persona persona) {
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -154,7 +154,7 @@ public class PersonaDAO {
             stmt = conn.prepareStatement(SQL_DELETE);
 
             // parametros del query
-            stmt.setInt(1, personaId);
+            stmt.setInt(1, persona.getPersonaId());
 
             // ejecutar query
             registros = stmt.executeUpdate();
