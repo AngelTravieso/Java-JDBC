@@ -22,7 +22,7 @@ public class UsuarioJDBC {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Usuario usuario = null;
-        List<Usuario> usuarios = new ArrayList<Usuario>();
+        List<Usuario> usuarios = new ArrayList<>();
 
         try {
 
