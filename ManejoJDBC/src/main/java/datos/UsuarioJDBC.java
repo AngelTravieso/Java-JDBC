@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.*;
 import static datos.Conexion.*;
 
-public class UsuarioDAO {
+public class UsuarioJDBC {
 
     private static final String SQL_SELECT = "SELECT usuario_id, user_name, user_password FROM usuario";
 

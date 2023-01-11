@@ -1,13 +1,13 @@
 package test;
 
-import datos.UsuarioDAO;
+import datos.UsuarioJDBC;
 import domain.Usuario;
 import java.util.List;
 
 public class TestManejoUsuarios {
 
     public static void main(String[] args) {
-        UsuarioDAO usuarioDao = new UsuarioDAO();
+        UsuarioJDBC usuarioDao = new UsuarioJDBC();
         
         // objeto usuario a insertar en la tabla
         Usuario usuarioNuevo = new Usuario("gustavo", "65478");

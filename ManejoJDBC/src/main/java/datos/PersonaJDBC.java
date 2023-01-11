@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.*;
 import static datos.Conexion.*;
 
-public class PersonaDAO {
+public class PersonaJDBC {
 
     private static final String SQL_SELECT = "SELECT persona_id, nombre, apellido, email, telefono FROM persona";
 

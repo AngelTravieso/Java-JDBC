@@ -1,14 +1,14 @@
 package test;
 
-import datos.PersonaDAO;
+import datos.PersonaJDBC;
 import domain.Persona;
 import java.util.List;
 
-public class TestManejoPersonas {
+public class ManejoPersonas {
 
     public static void main(String[] args) {
         // Objeto DAO que contiene los metodos para interactuar con la BD
-        PersonaDAO personaDao = new PersonaDAO();
+        PersonaJDBC personaDao = new PersonaJDBC();
         
         // Objeto persona con solo el Id para eliminar de la tabla
         Persona personaEliminada = new Persona(5);
