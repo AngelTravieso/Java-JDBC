@@ -7,6 +7,8 @@ import static datos.Conexion.*;
 
 public class UsuarioJDBC {
 
+    private Connection conexionTransaccional;
+
     private static final String SQL_SELECT = "SELECT usuario_id, user_name, user_password FROM usuario";
 
     private static final String SQL_INSERT = "INSERT INTO usuario (user_name, user_password) VALUES (?, ?)";
@@ -15,8 +17,18 @@ public class UsuarioJDBC {
 
     private static final String SQL_DELETE = "DELETE FROM usuario WHERE usuario_id = ?";
 
+    // constructor vacio
+    public UsuarioJDBC() {
+
+    }
+
+    // Constructor para manejar conexion transaccional
+    public UsuarioJDBC(Connection conexionTransaccional) {
+        this.conexionTransaccional = conexionTransaccional;
+    }
+
     // seleccionar todos los registros de la tabla usuario
-    public List<Usuario> seleccionar() {
+    public List<Usuario> seleccionar() throws SQLException {
         Connection conn = null;
         // preparedStatement es mas eficiente para querys
         PreparedStatement stmt = null;
@@ -26,7 +38,7 @@ public class UsuarioJDBC {
 
         try {
 
-            conn = getConection();
+            conn = this.conexionTransaccional != null ? this.conexionTransaccional : getConection();
 
             stmt = conn.prepareStatement(SQL_SELECT);
 
@@ -45,13 +57,15 @@ public class UsuarioJDBC {
 
             }
 
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
         } finally {
             try {
                 close(rs);
                 close(stmt);
-                close(conn);
+
+                if (this.conexionTransaccional == null) {
+                    close(conn);
+                }
+
             } catch (SQLException ex) {
                 ex.printStackTrace(System.out);
             }
@@ -62,13 +76,13 @@ public class UsuarioJDBC {
     }
 
     // insertar nuevo registro en la tabla de usuarios
-    public int insertar(Usuario usuario) {
+    public int insertar(Usuario usuario) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
 
         try {
-            conn = Conexion.getConection();
+            conn = this.conexionTransaccional != null ? this.conexionTransaccional : getConection();
 
             // preparar
             stmt = conn.prepareStatement(SQL_INSERT);
@@ -79,12 +93,12 @@ public class UsuarioJDBC {
 
             registros = stmt.executeUpdate();
 
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
         } finally {
             try {
                 close(stmt);
-                close(conn);
+                if (this.conexionTransaccional == null) {
+                    close(conn);
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.out);
             }
@@ -96,14 +110,14 @@ public class UsuarioJDBC {
     }
 
     // actualizar registros en la tabla de usuarios
-    public int actualizar(Usuario usuario) {
+    public int actualizar(Usuario usuario) throws SQLException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
 
         try {
-            conn = Conexion.getConection();
+            conn = this.conexionTransaccional != null ? this.conexionTransaccional : getConection();
 
             stmt = conn.prepareStatement(SQL_UPDATE);
 
@@ -114,12 +128,12 @@ public class UsuarioJDBC {
 
             registros = stmt.executeUpdate();
 
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
         } finally {
             try {
                 close(stmt);
-                close(conn);
+                if (this.conexionTransaccional == null) {
+                    close(conn);
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.out);
             }
@@ -130,7 +144,7 @@ public class UsuarioJDBC {
     }
 
     // eliminar registros de la tabla de usuarios
-    public int eliminar(Usuario usuario) {
+    public int eliminar(Usuario usuario) throws SQLException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -138,7 +152,7 @@ public class UsuarioJDBC {
 
         try {
 
-            conn = Conexion.getConection();
+            conn = this.conexionTransaccional != null ? this.conexionTransaccional : getConection();
 
             stmt = conn.prepareStatement(SQL_DELETE);
 
@@ -146,12 +160,12 @@ public class UsuarioJDBC {
 
             registros = stmt.executeUpdate();
 
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
         } finally {
             try {
                 close(stmt);
-                close(conn);
+                if (this.conexionTransaccional == null) {
+                    close(conn);
+                }
             } catch (SQLException ex) {
                 ex.printStackTrace(System.out);
             }
