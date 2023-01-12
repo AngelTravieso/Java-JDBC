@@ -1,11 +1,11 @@
 package datos;
 
-import domain.Usuario;
+import domain.UsuarioDto;
 import java.sql.*;
 import java.util.*;
 import static datos.Conexion.*;
 
-public class UsuarioJDBC {
+public class UsuarioDaoJDBC implements UsuarioDao {
 
     private Connection conexionTransaccional;
 
@@ -18,23 +18,23 @@ public class UsuarioJDBC {
     private static final String SQL_DELETE = "DELETE FROM usuario WHERE usuario_id = ?";
 
     // constructor vacio
-    public UsuarioJDBC() {
+    public UsuarioDaoJDBC() {
 
     }
 
     // Constructor para manejar conexion transaccional
-    public UsuarioJDBC(Connection conexionTransaccional) {
+    public UsuarioDaoJDBC(Connection conexionTransaccional) {
         this.conexionTransaccional = conexionTransaccional;
     }
 
     // seleccionar todos los registros de la tabla usuario
-    public List<Usuario> seleccionar() throws SQLException {
+    public List<UsuarioDto> select() throws SQLException {
         Connection conn = null;
         // preparedStatement es mas eficiente para querys
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Usuario usuario = null;
-        List<Usuario> usuarios = new ArrayList<>();
+        UsuarioDto usuario = null;
+        List<UsuarioDto> usuarios = new ArrayList<>();
 
         try {
 
@@ -51,7 +51,7 @@ public class UsuarioJDBC {
                 String password = rs.getString("user_password");
 
                 // Crear objeto de tipo usuario
-                Usuario user = new Usuario(usuarioId, username, password);
+                UsuarioDto user = new UsuarioDto(usuarioId, username, password);
 
                 usuarios.add(user);
 
@@ -76,7 +76,7 @@ public class UsuarioJDBC {
     }
 
     // insertar nuevo registro en la tabla de usuarios
-    public int insertar(Usuario usuario) throws SQLException {
+    public int insert(UsuarioDto usuario) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
@@ -110,7 +110,7 @@ public class UsuarioJDBC {
     }
 
     // actualizar registros en la tabla de usuarios
-    public int actualizar(Usuario usuario) throws SQLException {
+    public int update(UsuarioDto usuario) throws SQLException {
 
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -144,7 +144,7 @@ public class UsuarioJDBC {
     }
 
     // eliminar registros de la tabla de usuarios
-    public int eliminar(Usuario usuario) throws SQLException {
+    public int delete(UsuarioDto usuario) throws SQLException {
 
         Connection conn = null;
         PreparedStatement stmt = null;

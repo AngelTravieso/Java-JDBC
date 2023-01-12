@@ -1,8 +1,9 @@
 package test;
 
 import datos.*;
-import domain.Usuario;
+import domain.UsuarioDto;
 import java.sql.*;
+import java.util.List;
 
 public class ManejoUsuarios {
 
@@ -20,19 +21,13 @@ public class ManejoUsuarios {
 
             }
 
-            UsuarioJDBC usuarioJdbc = new UsuarioJDBC(conn);
+            UsuarioDao usuarioDao = new UsuarioDaoJDBC(conn);
 
-            // actualizar registro en la tabla de usuario
-            Usuario usuarioActualizado = new Usuario(3);
-            usuarioActualizado.setUser_name("gustavo actualizado");
-            usuarioActualizado.setUser_password("1234 actualizada");
+            List<UsuarioDto> usuarios = usuarioDao.select();
 
-            usuarioJdbc.actualizar(usuarioActualizado);
-
-            // insertar nuevo registro en la tabla de usuario
-            Usuario nuevoUsuario = new Usuario("pedro", "clave secreta");
-
-            usuarioJdbc.insertar(nuevoUsuario);
+            usuarios.forEach(usuario -> {
+                System.out.println("usuario DTO = " + usuario);
+            });
 
             // si todo sale bien hacer commit de la transaccion
             conn.commit();
